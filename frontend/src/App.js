@@ -7,19 +7,19 @@ import "./App.css";
 
 const App = () => {
   const [tasks, setTasks] = useState([]);
+// fetch backend
+useEffect(() => {
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get("https://task-manager-4-juln.onrender.com/tasks"); // Update this URL
+      setTasks(response.data);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
+  fetchTasks();
+}, []);
 
-  // Fetch tasks from backend
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await axios.get("/tasks");
-        setTasks(response.data);
-      } catch (error) {
-        console.error("Error fetching tasks:", error);
-      }
-    };
-    fetchTasks();
-  }, []);
 
   // Add a new task
   const addTask = async (newTask) => {
